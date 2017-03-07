@@ -22,7 +22,7 @@ install_github("hunzikp/rtree")
 Usage
 -----
 
-Say we have two large sets of points, A and B, stored as 2-column matrices of Euclidean coordinates:
+Say we have two large sets of points, A and B, stored as 2-column matrices of Cartesian coordinates:
 
 ``` r
 ## Simulate point coordinates
@@ -170,8 +170,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10   5.799  241.625
-    ## 1 rtree           10   0.024    1.000
+    ## 2 rgeos           10   5.701   247.87
+    ## 1 rtree           10   0.023     1.00
 
 ``` r
 ## Plot
@@ -218,7 +218,7 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10   1.727    1.906
+    ## 2 kdtree           10   1.734    1.914
     ## 1  rtree           10   0.906    1.000
 
 ``` r

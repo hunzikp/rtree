@@ -28,7 +28,7 @@ install_github("hunzikp/rtree")
 
 ## Usage
 
-Say we have two large sets of points, A and B, stored as 2-column matrices of Euclidean coordinates:
+Say we have two large sets of points, A and B, stored as 2-column matrices of Cartesian coordinates:
 ```{r simulate}
 ## Simulate point coordinates
 set.seed(0)
