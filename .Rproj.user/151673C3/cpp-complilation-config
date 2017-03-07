@@ -1,0 +1,16 @@
+{
+    "args" : [
+        "-I/usr/lib/rstudio/resources/libclang/builtin-headers/3.5",
+        "-I/usr/lib/rstudio/resources/libclang/builtin-headers/libc++/3.5",
+        "-I/home/hunzikp/R/x86_64-pc-linux-gnu-library/3.3/Rcpp/include",
+        "-I/home/hunzikp/R/x86_64-pc-linux-gnu-library/3.3/BH/include",
+        "-I/usr/share/R/include",
+        "-DNDEBUG",
+        "-fpic",
+        "-fstack-protector-strong",
+        "-D_FORTIFY_SOURCE=2"
+    ],
+    "hash" : "1488832541",
+    "is_cpp" : true,
+    "pch" : "Rcpp"
+}

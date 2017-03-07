@@ -1,0 +1,3 @@
+"0","speedup <- round(bm.wd$relative[bm.wd$test==""rgeos""], 1)"
+"0","mtext(paste(""rtree "", speedup, ""x faster than rgeos"", sep=""""), "
+"0","      line=1.5, cex=1.25)"

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n#### Benchmarking\n\n### Within-distance\n\n## Load packages\nlibrary(sp)\nlibrary(rgeos)\nlibrary(rbenchmark)\n\n## Simulate data\nset.seed(0)\nA_n <- 10^3\nA <- cbind(runif(A_n), runif(A_n))\nB_n <- 10^3\nB <- cbind(runif(B_n), runif(B_n))\nd <- 0.05\n\n## Encapsulate wd operations in functions, then benchmark\nrgeos.wd <- function() {\n  wd_mat <- gWithinDistance(spgeom1=SpatialPoints(A), spgeom2=SpatialPoints(B), dist=d, byid=TRUE)\n}\nrtree.wd <- function() {\n  wd_ls <- withinDistance(RTree(B), A, d)\n}\nbm.wd <- benchmark(rtree=rtree.wd(),\n                rgeos=rgeos.wd(),\n                replications=10,\n                columns=c(\"test\", \"replications\", \"elapsed\", \"relative\"))\n\n## Print output\nprint(bm.wd)\n\n## Plot\nbarplot(bm.wd$relative, names.arg=bm.wd$test,\n        ylab=\"Relative Time Elapsed\", cex.main=1.5)\nmtext(\"within distance\", line=3, cex=1.5, font=2)\nmtext(paste(\"rtree \", round(bm.wd$relative[bm.wd$test==\"rgeos\"], 1), \"x faster than rgeos\", sep=\"\"), line=1.5, cex=1.25)\n\n\n\n### KNN\n\n## Load packages\nlibrary(FNN)\n\n## Simulate data\nset.seed(0)\nA_n <- 10^5\nA <- cbind(runif(A_n), runif(A_n))\nB_n <- 10^5\nB <- cbind(runif(B_n), runif(B_n))\nk <- 50L\n\n## Encapsulate knn operations in functions, then benchmark\nkdtree.knn <- function() {\n  nn.idx <- get.knnx(data=B, query=A, k=k, algorithm=c(\"kd_tree\"))\n}\nrtree.knn <- function() {\n  nn_ls <- rtree::knn(RTree(B), A, k)\n}\nbm.knn <- benchmark(rtree=rtree.knn(),\n                    kdtree=kdtree.knn(),\n                    replications=10,\n                   columns=c(\"test\", \"replications\", \"elapsed\", \"relative\"))\n\n## Print output\nprint(bm.knn)\n\n## Plot\nbarplot(bm.knn$relative, names.arg=bm.knn$test,\n        ylab=\"Relative Time Elapsed\", cex.main=1.5)\nmtext(\"KNN\", line=3, cex=1.5, font=2)\nmtext(paste(\"rtree \", round(bm.knn$relative[bm.knn$test==\"kdtree\"], 1), \"x faster than FNN (kd-tree)\", sep=\"\"), line=1.5, cex=1.25)\n\n\n\n\n\n\n\n\n\n\n\n",
+    "created" : 1488842728715.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "697912129",
+    "id" : "C4CF9B3C",
+    "lastKnownWriteTime" : 1488855167,
+    "last_content_update" : 1488855167166,
+    "path" : "~/Projects/rtree/benchmark.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

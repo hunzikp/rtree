@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n#### Github Example\nlibrary(rtree)\n\n## Simulate data\nA_n <- 10^5\nA <- cbind(runif(A_n), runif(A_n))\nB_n <- 10^6\nB <- cbind(runif(B_n), runif(B_n))\ncolnames(A) <- colnames(B) <- c('x', 'y')\n\n## Set index\nB_rtree <- RTree(B)\n\n## Within dist\nd <- 0.005\nwd_ls <- withinDistance(B_rtree, A, d)\n\n## Plot\nlibrary(plotrix)\n\na_1 <- A[1,]\nplot(a_1[1], a_1[2], xlim=c(a_1[1]-d, a_1[1]+d), ylim=c(a_1[2]-d, a_1[2]+d),\n     col='black', asp=1, pch=20, xlab='x', ylab='y')\npoints(B[,1], B[,2], col='grey')\ndraw.circle(a_1[1], a_1[2], d)\nb_wd <- B[wd_ls[[1]],]\npoints(b_wd[,1], b_wd[,2], col='red', pch=20)\n\n## KNN\nk <- 10L\nknn_ls <- knn(B_rtree, A, k)\n\n## Plot\na_1 <- A[1,]\nplot(a_1[1], a_1[2], xlim=c(a_1[1]-d, a_1[1]+d), ylim=c(a_1[2]-d, a_1[2]+d),\n     col='black', asp=1, pch=20, xlab='x', ylab='y')\npoints(B[,1], B[,2], col='grey')\nb_knn <- B[knn_ls[[1]],]\npoints(b_knn[,1], b_knn[,2], col='red', pch=20)\n\n\n\n#### Check for errors\n\n# k greater than nrow(B)\nA_n <- 10^5\nA <- cbind(runif(A_n), runif(A_n))\nB_n <- 5\nB <- cbind(runif(B_n), runif(B_n))\nB_rtree <- RTree(B)\nk <- 10L\nknn_ls <- knn(B_rtree, A, k)\n\n\n",
+    "created" : 1488833718386.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3538409052",
+    "id" : "9BC398FE",
+    "lastKnownWriteTime" : 1488842626,
+    "last_content_update" : 1488842626815,
+    "path" : "~/Projects/rtree/test.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled2"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

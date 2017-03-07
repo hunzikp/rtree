@@ -1,0 +1,3 @@
+"0","## Plot"
+"0","barplot(bm.wd$relative, names.arg=bm.wd$test,"
+"0","        ylab=""Relative Time Elapsed"", cex.main=1.5)"
