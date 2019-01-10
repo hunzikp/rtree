@@ -17,4 +17,3 @@ withinDistance(rTree, y, distance)
 For each point \eqn{y_i} in set \code{y}, returns the row-indices of the points indexed in \code{rTree}
 that are within a given \code{distance} of \eqn{y_i}.
 }
-

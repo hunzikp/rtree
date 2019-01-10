@@ -17,4 +17,3 @@ knn(rTree, y, k)
 For each point \eqn{y_i} in set \code{y}, returns the row-indices of the \code{k} points indexed in \code{rTree}
 that are closest to \eqn{y_i}.
 }
-

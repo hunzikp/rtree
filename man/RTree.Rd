@@ -19,4 +19,3 @@ Organizes points in an R-tree.
 The R-tree is created using the quadratic splitting algorithm, with the maximum number of elements
 per node set to 16. See \url{http://www.boost.org/doc/libs/1_63_0/libs/geometry/doc/html/geometry/spatial_indexes/introduction.html} for details.
 }
-

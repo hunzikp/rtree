@@ -10,6 +10,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     Rcpp (>= 0.12.9),
-    BH
+    BH,
+    methods
 LinkingTo: Rcpp, BH
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1

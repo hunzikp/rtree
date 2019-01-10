@@ -1,3 +1,5 @@
-exportPattern("^[[:alpha:]]+")
+export(RTree)
+export(knn)
+export(withinDistance)
 import(methods, Rcpp)
 useDynLib(rtree)
