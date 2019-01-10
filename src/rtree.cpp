@@ -63,7 +63,7 @@ public:
   std::vector<double> get_distances(NumericVector point_vec, std::vector<int> indexes) {
     point_t start = point_t(point_vec[0], point_vec[1]);
     std::vector<double> distances;
-    for (int i = 0; i < indexes.size(); i++) {
+    for (unsigned int i = 0; i < indexes.size(); i++) {
       point_t end = point_t(coords(indexes[i],0), coords(indexes[i],1));
       double dist = bg::distance(start, end);
       distances.push_back(dist);
@@ -84,7 +84,7 @@ public:
     }
 
     std::vector<double> inbox_distances = get_distances(point_vec, inbox_indexes);
-    for (int i=0; i<inbox_distances.size(); i++) {
+    for (unsigned int i=0; i<inbox_distances.size(); i++) {
       if (inbox_distances[i] <= distance) {
         indist_indexes.push_back(inbox_indexes[i] + 1);
       }
