@@ -70,6 +70,47 @@ withinDistance.RTree <- function(rTree, y, distance) {
   return(index.ls)
 }
 
+
+#' Count Points Within Distance
+#'
+#' For each point \eqn{y_i} in set \code{y}, returns the number points indexed in \code{rTree}
+#' that are within a given \code{distance} of \eqn{y_i}.
+#'
+#' @param rTree An \link{RTree} object.
+#' @param y A 2-column numeric matrix of point coordinates.
+#' @param distance A positive scalar.
+#'
+#' @export
+countWithinDistance <- function(rTree, y, distance) {
+  UseMethod("countWithinDistance", rTree)
+}
+
+countWithinDistance.RTree <- function(rTree, y, distance) {
+
+  if (!inherits(rTree, "RTree")) {
+    stop('rTree must be of class RTree.')
+  }
+  if (!is.numeric(y)) {
+    stop('y must be numeric.')
+  }
+  if (length(dim(y)) != 2 | dim(y)[2] != 2) {
+    stop('y must be a 2-column matrix.')
+  }
+  if (!is.numeric(distance)) {
+    stop('distance must be numeric.')
+  }
+  if (length(distance) != 1) {
+    stop('distance must be a scalar.')
+  }
+  if (distance <= 0) {
+    stop('distance must be positive.')
+  }
+
+  index.ls <- rTree$rTreeCpp$count_within_distance_list(y, distance)
+
+  return(index.ls)
+}
+
 #' Get Nearest Neighbors
 #'
 #' For each point \eqn{y_i} in set \code{y}, returns the row-indices of the \code{k} points indexed in \code{rTree}

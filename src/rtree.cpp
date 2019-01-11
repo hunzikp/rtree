@@ -104,6 +104,20 @@ public:
     return(indist_indexes_ls);
   }
 
+  // Counting version of within_distance_list
+  // For each point in point_mat, returns the number of points within distance.
+  // This uses much less memory than within_distance_list when point_mat is
+  // large and there are many points within distance.
+  std::vector<int> count_within_distance_list(NumericMatrix point_mat, double distance) {
+    std::vector<int> indist_indexes_ls(point_mat.nrow());
+    for (int i=0; i < point_mat.nrow(); i++){
+      NumericVector point_vec = point_mat(i,_);
+      std::vector<int> indist_indexes = within_distance(point_vec, distance);
+      indist_indexes_ls[i] = indist_indexes.size();
+    }
+    return(indist_indexes_ls);
+  }
+
   // KNN
   // Note: Returns R indices (starting at 1, not 0!)
   std::vector<int> knn(NumericVector point, unsigned int n) {
@@ -143,6 +157,7 @@ RCPP_MODULE(rtreecpp) {
   .method( "intersects", &RTreeCpp::intersects)
   .method( "within_distance", &RTreeCpp::within_distance)
   .method( "within_distance_list", &RTreeCpp::within_distance_list)
+  .method( "count_within_distance_list", &RTreeCpp::count_within_distance_list)
   .method( "knn", &RTreeCpp::knn)
   .method( "knn_list", &RTreeCpp::knn_list)
   ;
