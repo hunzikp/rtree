@@ -3,6 +3,10 @@ Type: Package
 Title: R-Trees for Point Data
 Version: 0.1.0
 Author: Philipp Hunziker
+Authors@R: c(
+  person("Philipp", "Hunziker", email = "hunzikp@gmail.com",
+  role = c("aut", "cre")),
+  person("Kent", "Johnson", email="kjohnson@akoyabio.com", role="ctb")
 Maintainer: Philipp Hunziker <hunzikp@gmail.com>
 Description: The rtree package implements fast Euclidean within-distance checks and KNN calculations for points in 2D space.
 License: GPL-2

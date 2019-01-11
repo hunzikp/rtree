@@ -16,7 +16,7 @@ You can install the package directly from this repository:
 
 ``` r
 library(devtools)
-install_github("hunzikp/rtree")
+install_github("akoyabio/rtree")
 ```
 
 Usage
