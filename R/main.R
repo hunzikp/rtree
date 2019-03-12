@@ -73,13 +73,14 @@ withinDistance.RTree <- function(rTree, y, distance) {
 
 #' Count Points Within Distance
 #'
-#' For each point \eqn{y_i} in set \code{y}, returns the number points indexed in \code{rTree}
+#' For each point \eqn{y_i} in set \code{y}, returns the number of
+#' points indexed in \code{rTree}
 #' that are within a given \code{distance} of \eqn{y_i}.
 #'
 #' @param rTree An \link{RTree} object.
 #' @param y A 2-column numeric matrix of point coordinates.
 #' @param distance A positive scalar.
-#'
+#' @return An integer vector of with one entry for each row of `y`.
 #' @export
 countWithinDistance <- function(rTree, y, distance) {
   UseMethod("countWithinDistance", rTree)
@@ -119,7 +120,8 @@ countWithinDistance.RTree <- function(rTree, y, distance) {
 #' @param rTree An \link{RTree} object.
 #' @param y A 2-column numeric matrix of point coordinates.
 #' @param k A positive integer.
-#'
+#' @return A list with one entry per row of `y`. Each entry is a vector of
+#' row indices.
 #' @export
 knn <- function(rTree, y, k) {
   UseMethod("knn", rTree)

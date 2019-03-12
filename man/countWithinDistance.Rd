@@ -13,7 +13,11 @@ countWithinDistance(rTree, y, distance)
 
 \item{distance}{A positive scalar.}
 }
+\value{
+An integer vector of with one entry for each row of `y`.
+}
 \description{
-For each point \eqn{y_i} in set \code{y}, returns the number points indexed in \code{rTree}
+For each point \eqn{y_i} in set \code{y}, returns the number of
+points indexed in \code{rTree}
 that are within a given \code{distance} of \eqn{y_i}.
 }

@@ -13,6 +13,10 @@ knn(rTree, y, k)
 
 \item{k}{A positive integer.}
 }
+\value{
+A list with one entry per row of `y`. Each entry is a vector of
+row indices.
+}
 \description{
 For each point \eqn{y_i} in set \code{y}, returns the row-indices of the \code{k} points indexed in \code{rTree}
 that are closest to \eqn{y_i}.
