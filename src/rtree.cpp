@@ -16,7 +16,7 @@ using namespace Rcpp;
 // Mnemonics
 namespace bg = boost::geometry;
 namespace bgi = boost::geometry::index;
-typedef bg::model::point<float, 2, bg::cs::cartesian> point_t;
+typedef bg::model::point<double, 2, bg::cs::cartesian> point_t;
 typedef bg::model::box<point_t> box;
 typedef std::pair<point_t, unsigned int> value_t;
 
