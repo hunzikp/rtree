@@ -1,7 +1,7 @@
 ---
 title: "rtree package"
-author: "Philipp Hunziker"
-date: "March 6, 2017"
+author: Philipp Hunziker & Kent Johnson
+date: "`r Sys.Date()`"
 output: github_document
 ---
 
@@ -14,15 +14,13 @@ It offers significant speed-ups vis-a-vis simple implementations by relying on t
 
 rtree was inspired by [this](http://gallery.rcpp.org/articles/Rtree-examples/) example in the Rcpp gallery.
 
-<span style="color:red">CAUTION</span>: This package is in development - its interface may change.
-
 ## Installation
 
 You can install the package directly from this repository:
 
 ```{r eval=FALSE}
-library(devtools)
-install_github("akoyabio/rtree")
+# install.packages("devtools") # Install if needed
+devtools::install_github("akoyabio/rtree")
 ```
 
 
@@ -111,11 +109,9 @@ points(b_knn[,1], b_knn[,2], col='red', pch=20) # Plot relevant points in red
 
 ## Benchmarking
 
-All benchmarks are performed on a i7-6920HQ CPU @ 2.90GHz.
-
 ### Within-Distance Benchmarks
 
-We first compare the within-distance functionality to the gWithinDistance function offered in [rgeos](https://cran.r-project.org/package=rgeos) (version 0.3-21).
+We first compare the within-distance functionality to the gWithinDistance function offered in [rgeos](https://cran.r-project.org/package=rgeos) (version `r packageVersion('rgeos')`).
 ```{r wd_bench, fig.cap = "", message=FALSE, warning=FALSE}
 ## Load packages
 library(sp)

@@ -1,28 +1,31 @@
 rtree package
 ================
-Philipp Hunziker
-March 6, 2017
+Philipp Hunziker & Kent Johnson
+2019-06-26
 
-The rtree package offers fast Euclidean within-distance checks and KNN calculations for points in 2D space. It offers significant speed-ups vis-a-vis simple implementations by relying on the [R-tree data structure](https://en.wikipedia.org/wiki/R-tree) implementation of <http://www.boost.org/>.
+The rtree package offers fast Euclidean within-distance checks and KNN
+calculations for points in 2D space. It offers significant speed-ups
+vis-a-vis simple implementations by relying on the [R-tree data
+structure](https://en.wikipedia.org/wiki/R-tree) implementation of
+<http://www.boost.org/>.
 
-rtree was inspired by [this](http://gallery.rcpp.org/articles/Rtree-examples/) example in the Rcpp gallery.
+rtree was inspired by
+[this](http://gallery.rcpp.org/articles/Rtree-examples/) example in the
+Rcpp gallery.
 
-<span style="color:red">CAUTION</span>: This package is in development - its interface may change.
-
-Installation
-------------
+## Installation
 
 You can install the package directly from this repository:
 
 ``` r
-library(devtools)
-install_github("akoyabio/rtree")
+# install.packages("devtools") # Install if needed
+devtools::install_github("akoyabio/rtree")
 ```
 
-Usage
------
+## Usage
 
-Say we have two large sets of points, A and B, stored as 2-column matrices of Cartesian coordinates:
+Say we have two large sets of points, A and B, stored as 2-column
+matrices of Cartesian coordinates:
 
 ``` r
 ## Simulate point coordinates
@@ -36,7 +39,9 @@ colnames(A) <- colnames(B) <- c('x', 'y')
 
 ### Within-Distance Calculation
 
-For each point of set *A*, *a*<sub>*i*</sub>, we want to know all points of set *B* that are within distance *d* of *a*<sub>*i*</sub>. To compute this, we first create an R-Tree index on *B*:
+For each point of set \(A\), \(a_i\), we want to know all points of set
+\(B\) that are within distance \(d\) of \(a_i\). To compute this, we
+first create an R-Tree index on \(B\):
 
 ``` r
 library(rtree)
@@ -63,7 +68,7 @@ d <- 0.05
 wd_ls <- withinDistance(B_rtree, A, d)
 ```
 
-wd\_ls is a list of length nrow(A)...
+wd\_ls is a list of length nrow(A)…
 
 ``` r
 nrow(A)==length(wd_ls)
@@ -71,7 +76,9 @@ nrow(A)==length(wd_ls)
 
     ## [1] TRUE
 
-...whereby the *i*th list element contains the row-indices of the points in *B* that are within distance *d* of point *a*<sub>*i*</sub>:
+…whereby the \(i\)th list element contains the row-indices of the points
+in \(B\) that are within distance \(d\) of point
+    \(a_i\):
 
 ``` r
 print(wd_ls[[1]])
@@ -100,11 +107,14 @@ b_wd <- B[wd_ls[[1]],]  # Get relevant points in B
 points(b_wd[,1], b_wd[,2], col='red', pch=20)  # Plot relevant points in red
 ```
 
-![Within distance sanity check.](README_files/figure-markdown_github/checkplot-1.png)
+![Within distance sanity
+check.](README_files/figure-gfm/checkplot-1.png)
 
 ### Nearest Neighbor Calculation
 
-For each point of set *A*, *a*<sub>*i*</sub>, we want to know the *k* points in B closest to *a*<sub>*i*</sub>. Recycling the RTree object created above, we perform the knn computation...
+For each point of set \(A\), \(a_i\), we want to know the \(k\) points
+in B closest to \(a_i\). Recycling the RTree object created above, we
+perform the knn computation…
 
 ``` r
 ## KNN calculation
@@ -112,7 +122,8 @@ k <- 10L
 knn_ls <- knn(B_rtree, A, k)
 ```
 
-...which returns a list of the same format as above, with the exception that each element of knn\_ls is exactly of length *k*.
+…which returns a list of the same format as above, with the exception
+that each element of knn\_ls is exactly of length \(k\).
 
 Again, we may plot the result to inspect its veracity:
 
@@ -128,16 +139,15 @@ b_knn <- B[knn_ls[[1]],]  # Get relevant points in B
 points(b_knn[,1], b_knn[,2], col='red', pch=20) # Plot relevant points in red
 ```
 
-![KNN sanity check.](README_files/figure-markdown_github/checkplot2-1.png)
+![KNN sanity check.](README_files/figure-gfm/checkplot2-1.png)
 
-Benchmarking
-------------
-
-All benchmarks are performed on a i7-6920HQ CPU @ 2.90GHz.
+## Benchmarking
 
 ### Within-Distance Benchmarks
 
-We first compare the within-distance functionality to the gWithinDistance function offered in [rgeos](https://cran.r-project.org/package=rgeos) (version 0.3-21).
+We first compare the within-distance functionality to the
+gWithinDistance function offered in
+[rgeos](https://cran.r-project.org/package=rgeos) (version 0.4.3).
 
 ``` r
 ## Load packages
@@ -170,8 +180,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10   5.701   247.87
-    ## 1 rtree           10   0.023     1.00
+    ## 2 rgeos           10    9.78      489
+    ## 1 rtree           10    0.02        1
 
 ``` r
 ## Plot
@@ -183,11 +193,15 @@ mtext(paste("rtree ", speedup, "x faster than rgeos", sep=""),
       line=1.5, cex=1.25)
 ```
 
-![](README_files/figure-markdown_github/wd_bench-1.png)
+![](README_files/figure-gfm/wd_bench-1.png)<!-- -->
 
 ### KNN Benchmarks
 
-Next we compare the KNN functionality with the KNN implementation based on kd-trees offered in the [FNN](https://cran.r-project.org/package=FNN) package (version 1.1). We don't offer benchmarking statistics against a linear search KNN implementation, which would obviously be much, much slower.
+Next we compare the KNN functionality with the KNN implementation based
+on kd-trees offered in the [FNN](https://cran.r-project.org/package=FNN)
+package (version 1.1). We don’t offer benchmarking statistics against a
+linear search KNN implementation, which would obviously be much, much
+slower.
 
 ``` r
 ## Load packages
@@ -218,8 +232,8 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10   1.734    1.914
-    ## 1  rtree           10   0.906    1.000
+    ## 2 kdtree           10    1.56    1.714
+    ## 1  rtree           10    0.91    1.000
 
 ``` r
 ## Plot
@@ -231,4 +245,4 @@ mtext(paste("rtree ", speedup, "x faster than FNN (kd-tree)", sep=""),
       line=1.5, cex=1.25)
 ```
 
-![](README_files/figure-markdown_github/knn_bench-1.png)
+![](README_files/figure-gfm/knn_bench-1.png)<!-- -->
