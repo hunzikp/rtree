@@ -9,20 +9,36 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The rtree package offers fast Euclidean within-distance checks and KNN calculations for points in 2D space.
-It offers significant speed-ups vis-a-vis simple implementations by relying on the [R-tree data structure](https://en.wikipedia.org/wiki/R-tree) implementation of <http://www.boost.org/>.
+The rtree package offers fast Euclidean within-distance checks and 
+KNN calculations for points in 2D space.
+It offers significant speed-ups vis-a-vis simple implementations 
+by relying on the [R-tree data structure](https://en.wikipedia.org/wiki/R-tree) 
+implemented by the
+[Boost geometry](https://www.boost.org/doc/libs/1_75_0/libs/geometry/doc/html/geometry/spatial_indexes/introduction.html)
+library.
 
-rtree was inspired by [this](http://gallery.rcpp.org/articles/Rtree-examples/) example in the Rcpp gallery.
+rtree was inspired by 
+[this](http://gallery.rcpp.org/articles/Rtree-examples/)
+example in the Rcpp gallery.
 
 ## Installation
 
-You can install the package directly from this repository:
+rtree requires an older version of the BH package. Install BH with the
+command:
 
 ```{r eval=FALSE}
-# install.packages("devtools") # Install if needed
-devtools::install_github("akoyabio/rtree")
+# install.packages("remotes") # Install if needed
+remotes::install_version('BH', '1.72.0-3')
 ```
 
+Then install rtree from this repository:
+
+```{r eval=FALSE}
+remotes::install_github("akoyabio/rtree")
+```
+
+Note: A version of rtree which uses the current BH package and requires
+R 4.0.0 or later is available in the `BH_1.75` branch.
 
 ## Usage
 

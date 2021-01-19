@@ -7,13 +7,14 @@ Authors@R: c(
   person("Philipp", "Hunziker", email = "hunzikp@gmail.com",
   role = c("aut", "cre")),
   person("Kent", "Johnson", email="kjohnson@akoyabio.com", role="ctb"))
-Maintainer: Philipp Hunziker <hunzikp@gmail.com>
-Description: The rtree package implements fast Euclidean within-distance checks and KNN calculations for points in 2D space.
+Maintainer: Kent Johnson <kjohnson@akoyabio.com
+Description: The rtree package implements fast Euclidean within-distance checks 
+    and KNN calculations for points in 2D space.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Imports:
     Rcpp (>= 0.12.9),
     methods
-LinkingTo: Rcpp, BH
+LinkingTo: Rcpp, BH (== 1.72)
 RoxygenNote: 6.1.1
