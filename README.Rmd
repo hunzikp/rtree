@@ -31,7 +31,8 @@ command:
 remotes::install_version('BH', '1.72.0-3')
 ```
 
-Then install rtree from this repository:
+Then install rtree from this repository. When asked, 
+**do not** update BH to a later version.
 
 ```{r eval=FALSE}
 remotes::install_github("akoyabio/rtree")

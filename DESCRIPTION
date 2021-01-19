@@ -16,5 +16,5 @@ LazyData: true
 Imports:
     Rcpp (>= 0.12.9),
     methods
-LinkingTo: Rcpp, BH (== 1.72)
+LinkingTo: Rcpp, BH (== 1.72.0-3)
 RoxygenNote: 6.1.1
