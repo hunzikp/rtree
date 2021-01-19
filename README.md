@@ -1,13 +1,15 @@
 rtree package
 ================
 Philipp Hunziker & Kent Johnson
-2019-06-26
+2021-01-19
 
 The rtree package offers fast Euclidean within-distance checks and KNN
 calculations for points in 2D space. It offers significant speed-ups
 vis-a-vis simple implementations by relying on the [R-tree data
-structure](https://en.wikipedia.org/wiki/R-tree) implementation of
-<http://www.boost.org/>.
+structure](https://en.wikipedia.org/wiki/R-tree) implemented by the
+[Boost
+geometry](https://www.boost.org/doc/libs/1_75_0/libs/geometry/doc/html/geometry/spatial_indexes/introduction.html)
+library.
 
 rtree was inspired by
 [this](http://gallery.rcpp.org/articles/Rtree-examples/) example in the
@@ -15,12 +17,23 @@ Rcpp gallery.
 
 ## Installation
 
-You can install the package directly from this repository:
+rtree requires an older version of the BH package. Install BH with the
+command:
 
 ``` r
-# install.packages("devtools") # Install if needed
-devtools::install_github("akoyabio/rtree")
+# install.packages("remotes") # Install if needed
+remotes::install_version('BH', '1.72.0-3')
 ```
+
+Then install rtree from this repository. When asked, **do not** update
+BH to a later version.
+
+``` r
+remotes::install_github("akoyabio/rtree")
+```
+
+Note: A version of rtree which uses the current BH package and requires
+R 4.0.0 or later is available in the `BH_1.75` branch.
 
 ## Usage
 
@@ -77,20 +90,18 @@ nrow(A)==length(wd_ls)
     ## [1] TRUE
 
 …whereby the \(i\)th list element contains the row-indices of the points
-in \(B\) that are within distance \(d\) of point
-    \(a_i\):
+in \(B\) that are within distance \(d\) of point \(a_i\):
 
 ``` r
 print(wd_ls[[1]])
 ```
 
-    ##  [1] 9999 5736  819 2654 7768 8949 2849 5398 7940 1856  622 2151 5223 5964
-    ## [15] 6410 3520 5320 2265 8569 3385 7011  246 4380 9875 9627 2508 6440 2678
-    ## [29] 4310 1207 8408 4945 4402 6573  979 3394 8919 8232 7790 5144 2819 5167
-    ## [43] 6514 4973 5952 8468 1283 7806  900 1277 1233  514 4225 7512 5313 8187
-    ## [57] 5626 4013 1661 9721 4004  475 6321 1632 1772 6458 2379  686 1082 1629
-    ## [71] 1931 8422 8945  739 9470 2515 1459 7517 1151 3991 3070 6498 5770 9752
-    ## [85] 7770
+    ##  [1] 9999 5736  819 2654 7768 8949 2849 5398 7940 1856  622 2151 5223 5964 6410
+    ## [16] 3520 5320 2265 8569 3385 7011  246 4380 9875 9627 2508 6440 2678 4310 1207
+    ## [31] 8408 4945 4402 6573  979 3394 8919 8232 7790 5144 2819 5167 6514 4973 5952
+    ## [46] 8468 1283 7806  900 1277 1233  514 4225 7512 5313 8187 5626 4013 1661 9721
+    ## [61] 4004  475 6321 1632 1772 6458 2379  686 1082 1629 1931 8422 8945  739 9470
+    ## [76] 2515 1459 7517 1151 3991 3070 6498 5770 9752 7770
 
 We can also check the sanity of the result visually:
 
@@ -147,7 +158,7 @@ points(b_knn[,1], b_knn[,2], col='red', pch=20) # Plot relevant points in red
 
 We first compare the within-distance functionality to the
 gWithinDistance function offered in
-[rgeos](https://cran.r-project.org/package=rgeos) (version 0.4.3).
+[rgeos](https://cran.r-project.org/package=rgeos) (version 0.5.5).
 
 ``` r
 ## Load packages
@@ -180,8 +191,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10    9.78      489
-    ## 1 rtree           10    0.02        1
+    ## 2 rgeos           10    4.49  149.667
+    ## 1 rtree           10    0.03    1.000
 
 ``` r
 ## Plot
@@ -232,8 +243,8 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10    1.56    1.714
-    ## 1  rtree           10    0.91    1.000
+    ## 2 kdtree           10    1.46    1.718
+    ## 1  rtree           10    0.85    1.000
 
 ``` r
 ## Plot
