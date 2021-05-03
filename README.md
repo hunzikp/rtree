@@ -1,7 +1,7 @@
 rtree package
 ================
 Philipp Hunziker & Kent Johnson
-2021-01-19
+2021-05-03
 
 The rtree package offers fast Euclidean within-distance checks and KNN
 calculations for points in 2D space. It offers significant speed-ups
@@ -52,9 +52,9 @@ colnames(A) <- colnames(B) <- c('x', 'y')
 
 ### Within-Distance Calculation
 
-For each point of set \(A\), \(a_i\), we want to know all points of set
-\(B\) that are within distance \(d\) of \(a_i\). To compute this, we
-first create an R-Tree index on \(B\):
+For each point of set *A*, *a*<sub>*i*</sub>, we want to know all points
+of set *B* that are within distance *d* of *a*<sub>*i*</sub>. To compute
+this, we first create an R-Tree index on *B*:
 
 ``` r
 library(rtree)
@@ -89,8 +89,8 @@ nrow(A)==length(wd_ls)
 
     ## [1] TRUE
 
-…whereby the \(i\)th list element contains the row-indices of the points
-in \(B\) that are within distance \(d\) of point \(a_i\):
+…whereby the *i*th list element contains the row-indices of the points
+in *B* that are within distance *d* of point *a*<sub>*i*</sub>:
 
 ``` r
 print(wd_ls[[1]])
@@ -118,14 +118,13 @@ b_wd <- B[wd_ls[[1]],]  # Get relevant points in B
 points(b_wd[,1], b_wd[,2], col='red', pch=20)  # Plot relevant points in red
 ```
 
-![Within distance sanity
-check.](README_files/figure-gfm/checkplot-1.png)
+![Within distance sanity check.](man/figures/README-checkplot-1.png)
 
 ### Nearest Neighbor Calculation
 
-For each point of set \(A\), \(a_i\), we want to know the \(k\) points
-in B closest to \(a_i\). Recycling the RTree object created above, we
-perform the knn computation…
+For each point of set *A*, *a*<sub>*i*</sub>, we want to know the *k*
+points in B closest to *a*<sub>*i*</sub>. Recycling the RTree object
+created above, we perform the knn computation…
 
 ``` r
 ## KNN calculation
@@ -134,7 +133,7 @@ knn_ls <- knn(B_rtree, A, k)
 ```
 
 …which returns a list of the same format as above, with the exception
-that each element of knn\_ls is exactly of length \(k\).
+that each element of knn\_ls is exactly of length *k*.
 
 Again, we may plot the result to inspect its veracity:
 
@@ -150,7 +149,7 @@ b_knn <- B[knn_ls[[1]],]  # Get relevant points in B
 points(b_knn[,1], b_knn[,2], col='red', pch=20) # Plot relevant points in red
 ```
 
-![KNN sanity check.](README_files/figure-gfm/checkplot2-1.png)
+![KNN sanity check.](man/figures/README-checkplot2-1.png)
 
 ## Benchmarking
 
@@ -191,8 +190,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10    4.49  149.667
-    ## 1 rtree           10    0.03    1.000
+    ## 2 rgeos           10    4.80      160
+    ## 1 rtree           10    0.03        1
 
 ``` r
 ## Plot
@@ -204,7 +203,7 @@ mtext(paste("rtree ", speedup, "x faster than rgeos", sep=""),
       line=1.5, cex=1.25)
 ```
 
-![](README_files/figure-gfm/wd_bench-1.png)<!-- -->
+![](man/figures/README-wd_bench-1.png)<!-- -->
 
 ### KNN Benchmarks
 
@@ -243,8 +242,8 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10    1.46    1.718
-    ## 1  rtree           10    0.85    1.000
+    ## 2 kdtree           10    1.58    1.629
+    ## 1  rtree           10    0.97    1.000
 
 ``` r
 ## Plot
@@ -256,4 +255,4 @@ mtext(paste("rtree ", speedup, "x faster than FNN (kd-tree)", sep=""),
       line=1.5, cex=1.25)
 ```
 
-![](README_files/figure-gfm/knn_bench-1.png)<!-- -->
+![](man/figures/README-knn_bench-1.png)<!-- -->

@@ -1,12 +1,15 @@
 ---
 title: "rtree package"
-author: Philipp Hunziker & Kent Johnson
+author: "Philipp Hunziker & Kent Johnson"
 date: "`r Sys.Date()`"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  fig.path = "man/figures/README-"
+)
 ```
 
 The rtree package offers fast Euclidean within-distance checks and 

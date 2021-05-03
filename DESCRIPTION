@@ -1,7 +1,7 @@
 Package: rtree
 Type: Package
 Title: R-Trees for Point Data
-Version: 0.1.0
+Version: 0.2.0
 Author: Philipp Hunziker
 Authors@R: c(
   person("Philipp", "Hunziker", email = "hunzikp@gmail.com",
@@ -13,6 +13,7 @@ Description: The rtree package implements fast Euclidean within-distance checks
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 3.6.0)
 Imports:
     Rcpp (>= 1.0.6),
     methods
