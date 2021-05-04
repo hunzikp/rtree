@@ -1,7 +1,3 @@
-rtree package
-================
-Philipp Hunziker & Kent Johnson
-2021-05-03
 
 The rtree package offers fast Euclidean within-distance checks and KNN
 calculations for points in 2D space. It offers significant speed-ups
@@ -106,14 +102,12 @@ print(wd_ls[[1]])
 We can also check the sanity of the result visually:
 
 ``` r
-library(plotrix)
-
 ## Plot points in B within distance d of point a_1
 a_1 <- A[1,]  # Get coords of a_1
 plot(a_1[1], a_1[2], xlim=c(a_1[1]-d, a_1[1]+d), ylim=c(a_1[2]-d, a_1[2]+d), 
      col='black', asp=1, pch=20, xlab='x', ylab='y')  # Plot a_1
 points(B[,1], B[,2], col='grey')  # Plot B in grey
-draw.circle(a_1[1], a_1[2], d)  # Draw circle of radius d
+symbols(a_1[1], a_1[2], circles=d, add=TRUE, inches=FALSE)  # Draw circle of radius d
 b_wd <- B[wd_ls[[1]],]  # Get relevant points in B
 points(b_wd[,1], b_wd[,2], col='red', pch=20)  # Plot relevant points in red
 ```
@@ -138,8 +132,6 @@ that each element of knn\_ls is exactly of length *k*.
 Again, we may plot the result to inspect its veracity:
 
 ``` r
-library(plotrix)
-
 ## Plot points in B within distance d of point a_1
 a_1 <- A[1,]  # Get coords of a_1
 plot(a_1[1], a_1[2], xlim=c(a_1[1]-d, a_1[1]+d), ylim=c(a_1[2]-d, a_1[2]+d), 
@@ -156,7 +148,7 @@ points(b_knn[,1], b_knn[,2], col='red', pch=20) # Plot relevant points in red
 ### Within-Distance Benchmarks
 
 We first compare the within-distance functionality to the
-gWithinDistance function offered in
+`gWithinDistance()` function offered in
 [rgeos](https://cran.r-project.org/package=rgeos) (version 0.5.5).
 
 ``` r
@@ -175,7 +167,8 @@ d <- 0.05
 
 ## Encapsulate wd operations in functions, then benchmark
 rgeos.wd <- function() {
-  wd_mat <- gWithinDistance(spgeom1=SpatialPoints(A), spgeom2=SpatialPoints(B), dist=d, byid=TRUE)
+  wd_mat <- gWithinDistance(spgeom1=SpatialPoints(A), spgeom2=SpatialPoints(B), 
+                            dist=d, byid=TRUE)
 }
 rtree.wd <- function() {
   wd_ls <- withinDistance(RTree(B), A, d)
@@ -190,8 +183,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10    4.80      160
-    ## 1 rtree           10    0.03        1
+    ## 2 rgeos           10    4.72      472
+    ## 1 rtree           10    0.01        1
 
 ``` r
 ## Plot
@@ -208,7 +201,7 @@ mtext(paste("rtree ", speedup, "x faster than rgeos", sep=""),
 ### KNN Benchmarks
 
 Next we compare the KNN functionality with the KNN implementation based
-on kd-trees offered in the [FNN](https://cran.r-project.org/package=FNN)
+on d-trees offered in the [FNN](https://cran.r-project.org/package=FNN)
 package (version 1.1). We don’t offer benchmarking statistics against a
 linear search KNN implementation, which would obviously be much, much
 slower.
@@ -242,8 +235,8 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10    1.58    1.629
-    ## 1  rtree           10    0.97    1.000
+    ## 2 kdtree           10    1.50    1.685
+    ## 1  rtree           10    0.89    1.000
 
 ``` r
 ## Plot
