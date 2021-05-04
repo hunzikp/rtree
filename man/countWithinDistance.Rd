@@ -21,3 +21,19 @@ For each point \eqn{y_i} in set \code{y}, returns the number of
 points indexed in \code{rTree}
 that are within a given \code{distance} of \eqn{y_i}.
 }
+\examples{
+# For two sets of points, A and B, count points in B within
+# a distance of 0.05 to points in A.
+n <- 10^4
+A <- cbind(runif(n), runif(n))
+B <- cbind(runif(n), runif(n))
+
+# Make an RTree on B
+B_rtree <- RTree(B)
+
+# Find points of B within 0.05 of each point in A
+counts <- countWithinDistance(B_rtree, A, 0.05)
+
+# Each element of counts is a count of points in B
+print(counts[[1]])
+}

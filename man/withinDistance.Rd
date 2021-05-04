@@ -13,7 +13,28 @@ withinDistance(rTree, y, distance)
 
 \item{distance}{A positive scalar.}
 }
+\value{
+A list with one entry per row of `y`.
+Each entry is a vector of row indices.
+}
 \description{
-For each point \eqn{y_i} in set \code{y}, returns the row-indices of the points indexed in \code{rTree}
+For each point \eqn{y_i} in set \code{y}, returns the row-indices
+of the points indexed in \code{rTree}
 that are within a given \code{distance} of \eqn{y_i}.
+}
+\examples{
+# For two sets of points, A and B, find points in B within
+# a distance of 0.05 to points in A.
+n <- 10^4
+A <- cbind(runif(n), runif(n))
+B <- cbind(runif(n), runif(n))
+
+# Make an RTree on B
+B_rtree <- RTree(B)
+
+# Find points of B within 0.05 of each point in A
+nearby <- withinDistance(B_rtree, A, 0.05)
+
+# Each element of nearby is a list of row indices in B
+print(nearby[[1]])
 }
