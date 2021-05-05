@@ -13,23 +13,14 @@ Rcpp gallery.
 
 ## Installation
 
-rtree requires an older version of the BH package. Install BH with the
-command:
-
 ``` r
 # install.packages("remotes") # Install if needed
-remotes::install_version('BH', '1.72.0-3')
-```
-
-Then install rtree from this repository. When asked, **do not** update
-BH to a later version.
-
-``` r
 remotes::install_github("akoyabio/rtree")
 ```
 
-Note: A version of rtree which uses the current BH package and requires
-R 4.0.0 or later is available in the `BH_1.75` branch.
+Note: As of rtree version 0.2.0, rtree requires R version 4.0.0 or
+higher. This is because version 1.75 of `boost::geometry` requires C++14
+which is not well supported in R versions before 4.0.0.
 
 ## Usage
 
@@ -183,8 +174,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10    4.72      472
-    ## 1 rtree           10    0.01        1
+    ## 2 rgeos           10    4.53      151
+    ## 1 rtree           10    0.03        1
 
 ``` r
 ## Plot
@@ -235,8 +226,8 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10    1.50    1.685
-    ## 1  rtree           10    0.89    1.000
+    ## 2 kdtree           10    1.46    1.698
+    ## 1  rtree           10    0.86    1.000
 
 ``` r
 ## Plot

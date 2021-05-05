@@ -67,7 +67,6 @@ jobs:
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
-          remotes::install_version('BH', '1.72.0-3') # BH 1.75 won't build on Windows R 3.6
           remotes::install_deps(dependencies = TRUE, upgrade="never")
           remotes::install_cran("rcmdcheck")
         shell: Rscript {0}
