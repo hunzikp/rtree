@@ -45,11 +45,14 @@ public:
   }
 
   // Within-box lookup
-  // box_vec is [lrx, lry, urx, ury] coordinates
+  // box_vec is [llx, lly, urx, ury] coordinates
   std::vector<int> intersects(NumericVector box_vec) {
+    // Find points within box_vec
     box query_box(point_t(box_vec[0], box_vec[1]), point_t(box_vec[2], box_vec[3]));
     std::vector<value_t> result_n;
     rtree_.query(bgi::intersects(query_box), std::back_inserter(result_n));
+
+    // Get just the indices of the points
     std::vector<int> indexes;
     std::vector<value_t>::iterator itr;
     for (itr = result_n.begin(); itr != result_n.end(); ++itr) {
@@ -74,15 +77,18 @@ public:
   // Get indices of points within distance of point
   // Note: Returns R indices (starting at 1, not 0!)
   std::vector<int> within_distance(NumericVector point_vec, double distance) {
+    // Candidate points are within a square with side 2 * distance
     std::vector<int> indist_indexes;
-    NumericVector box_vec = NumericVector::create(point_vec[0]-distance, point_vec[1]-distance,
-                                                  point_vec[0]+distance, point_vec[1]+distance);
+    NumericVector box_vec = NumericVector::create(
+      point_vec[0]-distance, point_vec[1]-distance,
+      point_vec[0]+distance, point_vec[1]+distance);
 
     std::vector<int> inbox_indexes = intersects(box_vec);
     if (inbox_indexes.size()==0) {
       return(indist_indexes);
     }
 
+    // Filter candidates by the actual distance
     std::vector<double> inbox_distances = get_distances(point_vec, inbox_indexes);
     for (unsigned int i=0; i<inbox_distances.size(); i++) {
       if (inbox_distances[i] <= distance) {
