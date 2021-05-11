@@ -1,5 +1,5 @@
 
-The rtree package offers fast Euclidean within-distance checks and KNN
+The `rtree` package offers fast Euclidean within-distance checks and KNN
 calculations for points in 2D space. It offers significant speed-ups
 vis-a-vis simple implementations by relying on the [R-tree data
 structure](https://en.wikipedia.org/wiki/R-tree) implemented by the
@@ -7,20 +7,28 @@ structure](https://en.wikipedia.org/wiki/R-tree) implemented by the
 geometry](https://www.boost.org/doc/libs/1_75_0/libs/geometry/doc/html/geometry/spatial_indexes/introduction.html)
 library.
 
-rtree was inspired by
+`rtree` was inspired by
 [this](http://gallery.rcpp.org/articles/Rtree-examples/) example in the
 Rcpp gallery.
 
 ## Installation
+
+### From CRAN
+
+``` r
+install.packages("rtree")
+```
+
+### Development version
 
 ``` r
 # install.packages("remotes") # Install if needed
 remotes::install_github("akoyabio/rtree")
 ```
 
-Note: As of rtree version 0.2.0, rtree requires R version 4.0.0 or
-higher. This is because version 1.75 of `boost::geometry` requires C++14
-which is not well supported in R versions before 4.0.0.
+Note: As of version 0.2.0, `rtree` requires R version 4.0.0 or higher.
+This is because version 1.75 of `boost::geometry` requires C++14 which
+is not well supported in Windows R versions before 4.0.0.
 
 ## Usage
 
@@ -50,7 +58,7 @@ library(rtree)
 B_rtree <- RTree(B)
 ```
 
-The RTree function creates an S3 object of class RTree,
+The `RTree()` function creates an S3 object of class `RTree`,
 
 ``` r
 inherits(B_rtree, 'RTree')
@@ -58,9 +66,9 @@ inherits(B_rtree, 'RTree')
 
     ## [1] TRUE
 
-which essentially just points to a C++ object of class RTreeCpp.
+which essentially just points to a C++ object of class `RTreeCpp`.
 
-Using the RTree object, we can now perform our query efficiently:
+Using the `RTree` object, we can now perform our query efficiently:
 
 ``` r
 ## Within distance calculation
@@ -68,7 +76,7 @@ d <- 0.05
 wd_ls <- withinDistance(B_rtree, A, d)
 ```
 
-wd\_ls is a list of length nrow(A)…
+`wd_ls` is a list of length `nrow(A)`…
 
 ``` r
 nrow(A)==length(wd_ls)
@@ -108,7 +116,7 @@ points(b_wd[,1], b_wd[,2], col='red', pch=20)  # Plot relevant points in red
 ### Nearest Neighbor Calculation
 
 For each point of set *A*, *a*<sub>*i*</sub>, we want to know the *k*
-points in B closest to *a*<sub>*i*</sub>. Recycling the RTree object
+points in B closest to *a*<sub>*i*</sub>. Recycling the `RTree` object
 created above, we perform the knn computation…
 
 ``` r
@@ -118,7 +126,7 @@ knn_ls <- knn(B_rtree, A, k)
 ```
 
 …which returns a list of the same format as above, with the exception
-that each element of knn\_ls is exactly of length *k*.
+that each element of `knn_ls` is exactly of length *k*.
 
 Again, we may plot the result to inspect its veracity:
 
@@ -174,8 +182,8 @@ print(bm.wd)
 ```
 
     ##    test replications elapsed relative
-    ## 2 rgeos           10    4.53      151
-    ## 1 rtree           10    0.03        1
+    ## 2 rgeos           10    4.67   116.75
+    ## 1 rtree           10    0.04     1.00
 
 ``` r
 ## Plot
@@ -226,8 +234,8 @@ print(bm.knn)
 ```
 
     ##     test replications elapsed relative
-    ## 2 kdtree           10    1.46    1.698
-    ## 1  rtree           10    0.86    1.000
+    ## 2 kdtree           10    1.45    1.667
+    ## 1  rtree           10    0.87    1.000
 
 ``` r
 ## Plot

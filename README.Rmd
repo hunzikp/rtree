@@ -9,7 +9,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The rtree package offers fast Euclidean within-distance checks and 
+The `rtree` package offers fast Euclidean within-distance checks and 
 KNN calculations for points in 2D space.
 It offers significant speed-ups vis-a-vis simple implementations 
 by relying on the [R-tree data structure](https://en.wikipedia.org/wiki/R-tree) 
@@ -17,20 +17,28 @@ implemented by the
 [Boost geometry](https://www.boost.org/doc/libs/1_75_0/libs/geometry/doc/html/geometry/spatial_indexes/introduction.html)
 library.
 
-rtree was inspired by 
+`rtree` was inspired by 
 [this](http://gallery.rcpp.org/articles/Rtree-examples/)
 example in the Rcpp gallery.
 
 ## Installation
+
+### From CRAN
+
+```{r eval=FALSE}
+install.packages("rtree")
+```
+
+### Development version
 
 ```{r eval=FALSE}
 # install.packages("remotes") # Install if needed
 remotes::install_github("akoyabio/rtree")
 ```
 
-Note: As of rtree version 0.2.0, rtree requires R version 4.0.0 or higher.
+Note: As of version 0.2.0, `rtree` requires R version 4.0.0 or higher.
 This is because version 1.75 of `boost::geometry` requires C++14 which is not
-well supported in R versions before 4.0.0.
+well supported in Windows R versions before 4.0.0.
 
 ## Usage
 
@@ -58,19 +66,19 @@ library(rtree)
 B_rtree <- RTree(B)
 ```
 
-The RTree function creates an S3 object of class RTree,
+The `RTree()` function creates an S3 object of class `RTree`,
 ```{r class}
 inherits(B_rtree, 'RTree')
 ```
-which essentially just points to a C++ object of class RTreeCpp.
+which essentially just points to a C++ object of class `RTreeCpp`.
 
-Using the RTree object, we can now perform our query efficiently:
+Using the `RTree` object, we can now perform our query efficiently:
 ```{r within}
 ## Within distance calculation
 d <- 0.05
 wd_ls <- withinDistance(B_rtree, A, d)
 ```
-wd_ls is a list of length nrow(A)...
+`wd_ls` is a list of length `nrow(A)`...
 ```{r check}
 nrow(A)==length(wd_ls)
 ```
@@ -96,14 +104,14 @@ points(b_wd[,1], b_wd[,2], col='red', pch=20)  # Plot relevant points in red
 
 For each point of set $A$, $a_i$, we want to know the $k$ points in B 
 closest to $a_i$.
-Recycling the RTree object created above, we perform the knn computation...
+Recycling the `RTree` object created above, we perform the knn computation...
 ```{r knn}
 ## KNN calculation
 k <- 10L
 knn_ls <- knn(B_rtree, A, k)
 ```
 ...which returns a list of the same format as above, with the exception that 
-each element of knn_ls is exactly of length $k$.
+each element of `knn_ls` is exactly of length $k$.
 
 Again, we may plot the result to inspect its veracity:
 ```{r checkplot2, fig.cap = "KNN sanity check.", message=FALSE, warning=FALSE}
