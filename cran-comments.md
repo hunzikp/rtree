@@ -14,6 +14,8 @@ This is the first submission of this package.
   * buntu Linux 20.04.1 LTS, R-release, GCC
   * Fedora Linux, R-devel, clang, gfortran
   * Debian Linux, R-devel, GCC ASAN/UBSAN
+* win-builder
+  * R version 4.1.0 beta (2021-05-06 r80268) using platform x86_64-w64-mingw32 (64-bit)
 
 ## R CMD check results
 
