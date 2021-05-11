@@ -1,9 +1,0 @@
-{
-    "path" : "~/Projects/rtree/rtree",
-    "sortOrder" : [
-        {
-            "ascending" : true,
-            "columnIndex" : 2
-        }
-    ]
-}
