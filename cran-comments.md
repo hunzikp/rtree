@@ -8,7 +8,12 @@ This is the first submission of this package.
   * Ubuntu 20.04.2 LTS, R 4.05
   * Ubuntu 20.04.2 LTS, R devel
   * Microsoft Windows Server 2019 10.0.17763 Datacenter
-* R-Hub Windows Server 2008 R2 SP1, R 4.0.5
+* R-Hub
+  * Windows Server 2008 R2 SP1, R 4.0.5, 32/64 bit
+  * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+  * buntu Linux 20.04.1 LTS, R-release, GCC
+  * Fedora Linux, R-devel, clang, gfortran
+  * Debian Linux, R-devel, GCC ASAN/UBSAN
 
 ## R CMD check results
 
