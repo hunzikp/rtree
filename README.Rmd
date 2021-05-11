@@ -33,7 +33,7 @@ install.packages("rtree")
 
 ```{r eval=FALSE}
 # install.packages("remotes") # Install if needed
-remotes::install_github("akoyabio/rtree")
+remotes::install_github("hunzikp/rtree")
 ```
 
 Note: As of version 0.2.0, `rtree` requires R version 4.0.0 or higher.
